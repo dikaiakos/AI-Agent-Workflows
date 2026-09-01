@@ -33,5 +33,5 @@ result = Runner.run_sync(
     agent, 
     input=input,
     )
-
+print(agent.model)
 print(result.final_output)

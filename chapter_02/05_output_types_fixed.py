@@ -30,6 +30,7 @@ class ResearchPlanModel(BaseModel):
 agent = Agent(
     name="Research Planner", 
     instructions=instructions,
+    model="gpt-4.1",
     output_type=ResearchPlanModel,
     )
 
@@ -39,5 +40,5 @@ result = Runner.run_sync(
     agent, 
     input=input,
     )
-
+print(agent.model)
 print(result.final_output)

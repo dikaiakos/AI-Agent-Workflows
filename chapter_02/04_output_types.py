@@ -1,7 +1,9 @@
 
 from agents import Agent, Runner
+from agents.models import get_default_model
 from dotenv import load_dotenv
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+from typing_extensions import TypedDict
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,14 +18,22 @@ You are a research planning assistant.
 - Output 5 concise tasks (5 words or less) to your plan.
 """
 
+class Task(TypedDict):
+    id: int
+    description: str
+
+
 class ResearchPlanModel(BaseModel):
-    tasks: dict[int, str]
-    """A list of tasks to perform for research."""
+    tasks: list[Task]
+    """Numbered tasks for research."""
+
+    model_config = ConfigDict(extra='forbid')
 
     
 agent = Agent(
     name="Research Planner", 
     instructions=instructions,
+    model="gpt-4.1",
     output_type=ResearchPlanModel,
     )
 
@@ -33,5 +43,5 @@ result = Runner.run_sync(
     agent, 
     input=input,
     )
-
+print(agent.model or get_default_model())
 print(result.final_output)
