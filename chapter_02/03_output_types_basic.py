@@ -1,5 +1,6 @@
+"""Run a basic structured-output research planning agent."""
 
-from typing import List
+# pylint: disable=invalid-name
 
 from agents import Agent, Runner
 from dotenv import load_dotenv
@@ -8,8 +9,7 @@ from pydantic import BaseModel
 # Load environment variables from .env file
 load_dotenv()
 
-# Agent Instructions
-instructions = """
+INSTRUCTIONS = """
 You are a research planning assistant.
 
 **TASK INSTRUCTIONS**
@@ -18,22 +18,25 @@ You are a research planning assistant.
 - Output 5 concise tasks (5 words or less) to your plan.
 """
 
+
 class ResearchPlanModel(BaseModel):
-    tasks: List[str]
+    """Research plan output from the agent."""
+
+    tasks: list[str]
     """A list of tasks to perform for research."""
 
-    
-agent = Agent(
-    name="Research Planner", 
-    instructions=instructions,
-    output_type=ResearchPlanModel,
-    )
 
-input = "learn about AI agents"
+agent = Agent(
+    name="Research Planner",
+    instructions=INSTRUCTIONS,
+    output_type=ResearchPlanModel,
+)
+
+RESEARCH_TOPIC = "learn about AI agents"
 
 result = Runner.run_sync(
-    agent, 
-    input=input,
-    )
+    agent,
+    input=RESEARCH_TOPIC,
+)
 
 print(result.final_output)
