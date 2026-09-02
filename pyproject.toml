@@ -1,0 +1,60 @@
+# Dependency manifest for the book's sample code.
+#
+# This is a NON-PACKAGE project: the chapters are standalone scripts run by
+# path, not a library that gets imported or built into a wheel. `package = false`
+# below tells uv to manage the environment without doing an editable install,
+# so there is no src/ layout and no [build-system] section.
+#
+# requirements.txt is kept in sync for readers following the README's
+# `pip install -r requirements.txt` path. Edit both when adding a dependency.
+
+[project]
+name = "ai-agent-workflows"
+version = "0.1.0"
+description = "Sample code for AI Agents In Action (2nd Edition)"
+requires-python = ">=3.11"
+
+dependencies = [
+    # Agents
+    "openai-agents[viz]",       # Building/running OpenAI-based agents, plus graph visualization
+    "pydantic",                 # Data validation and settings management via type annotations
+    "python-dotenv",            # Loads environment variables from a .env file
+
+    # MCP
+    # Pinned to v1: v2 renamed FastMCP -> MCPServer and changed other APIs.
+    # The chapter_03 / chapter_04 / bonus_projects servers all target the v1 API.
+    "mcp[cli]<2",
+
+    # A2A
+    "google-adk[a2a]",
+    "litellm",
+
+    # Data, embeddings, visualization
+    "plotly",                   # Interactive visualizations
+    "matplotlib",               # Plotting and visualizing data
+    "numpy",                    # Fundamental package for scientific computing
+    "chromadb",                 # Vector database for storing and querying embeddings
+    "tiktoken",                 # Tokenizer
+
+    # Tracing, monitoring, evaluation
+    "arize-phoenix",
+    "openinference-instrumentation-openai-agents",
+    "openinference-instrumentation-openai",
+
+    # Web applications and APIs
+    "fastapi",
+    "uvicorn[standard]",
+]
+
+[dependency-groups]
+# Dev tooling: installed by `uv sync`, excluded from `uv sync --no-dev`.
+dev = [
+    "autopep8",                 # Formats code to PEP 8
+    "pylint",                   # Linter enforcing coding standards
+    "flake8",                   # Style guide enforcement
+    "isort",                    # Sorts imports
+    "mypy",                     # Static type checker
+]
+
+[tool.uv]
+package = false
