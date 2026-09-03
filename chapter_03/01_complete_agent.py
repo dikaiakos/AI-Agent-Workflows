@@ -7,7 +7,6 @@ from agents.mcp import MCPServerStdio, MCPServerStdioParams
 
 SCRIPT = Path(__file__).with_name("01_complete_mcp_server.py").resolve()
 
-
 async def main():
     async with MCPServerStdio(
         name="MCP Server",
