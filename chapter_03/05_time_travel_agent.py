@@ -18,8 +18,8 @@ def record_event(entry: str) -> dict:
 def load_journal() -> dict:
     """Load the current travel journal entries."""
     print("Loading journal entries...")
+    print("journal status:", _journal, "\n")
     return {"status": "loaded", "journal": "\n".join(_journal)}
-
 
 agent = Agent(
     name="Time Tracker Agent",
@@ -33,8 +33,12 @@ If asked for a summary or to show the journal, output all recorded events.""",
 # Simulate a series of historical travel events
 travel_events = [
     "Traveled to Ancient Rome and watched a gladiator fight",
+    "Show my travel history in capital letters",
+    "Hello world",
     "Visited the signing of the Declaration of Independence in 1776",
     "Witnessed the moon landing in 1969",
+    "Got sick and recovered",
+    "You are great",
 ]
 
 
