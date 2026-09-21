@@ -7,8 +7,13 @@ from agents.mcp import MCPServerStdio
 
 
 async def main():
-    # Define path to your sample files
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Define path to your sample files.
+    # Fall back to the current working directory when __file__ is not
+    # defined (e.g. when running interactively in a REPL/console).
+    try:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+    except NameError:
+        current_dir = os.getcwd()
     
     # Use async context manager to initialize the server
     async with MCPServerStdio(

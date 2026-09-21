@@ -5,6 +5,8 @@ from pathlib import Path
 from agents import Agent, Runner
 from agents.mcp import MCPServerStdio, MCPServerStdioParams
 
+# Absolute path to the MCP server script. with_name() keeps this file's
+# directory and swaps the filename, so the lookup survives any working directory.
 SCRIPT = Path(__file__).with_name("06_mcp_time_travel_tracker.py").resolve()
 
 # Simulate a series of historical travel events
